@@ -1,3 +1,3 @@
 # CompetitiveProgramming
 
-Repositorio para estudos de CP.
+Repósitorio para estudos de CP.
