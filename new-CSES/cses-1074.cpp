@@ -1,14 +1,12 @@
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
 const int MAXN = 2e5+10;
 
-int n, v[MAXN];
-
-int abs(int x){
-    return x>=0?x:-x;
-}
+int n;
+long long int v[MAXN];
 
 int main(){
 
@@ -18,14 +16,16 @@ int main(){
         cin >> v[i];
     }
 
-    int cust1=0, cust2=0;
+    sort(v+1, v+n+1);
+
+    long long int cust=0LL;
+    int med = (n+1)/2;
 
     for(int i=1; i<=n; i++){
-        cust1 = abs(v[i]-v[n/2]);
-        cust2 = abs(v[i]-v[n/2 + 1]);
+        cust += abs(v[i]-v[med]);
     }
 
-    cout << min(cust1, cust2) << endl;
+    cout << cust << endl;
 
     return 0;
 }
