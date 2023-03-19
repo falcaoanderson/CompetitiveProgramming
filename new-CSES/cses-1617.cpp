@@ -22,7 +22,6 @@ ll exp(ll a, int b){
 }
 
 int main(){
-
     int n;
     cin >> n;
 

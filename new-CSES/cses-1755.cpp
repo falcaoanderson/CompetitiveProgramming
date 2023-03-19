@@ -50,6 +50,5 @@ int main(){
         cout << "NO SOLUTION" << endl; 
     }
     
-
     return 0;
 }
