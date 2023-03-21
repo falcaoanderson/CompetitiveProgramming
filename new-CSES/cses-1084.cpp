@@ -1,8 +1,7 @@
-// 20/03/23 // 
-
-/* terminar depois
+// 21/03/23 // 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -25,17 +24,21 @@ int main(){
     int last = 0;
     int ans = 0;
 
-    for(int i=0; i<m; i++){
+    for(int i=0; i<n; i++){
+ 
+        while(ap[last]+k < desired[i] && last<m){
+            last++;
+        }
+
         if(last >= m) break;
 
-        if(desired[i]-k<=ap[last]){
-            if(ap[last]<=desired[i]+k){
-                ans++;
-                last++;
-            }
+        if(ap[last]-k <= desired[i] && desired[i] <= ap[last]+k){
+            ans++;
+            last++;
         }
-    
     }
+
+    cout << ans << endl;
 
     return 0;
 }
