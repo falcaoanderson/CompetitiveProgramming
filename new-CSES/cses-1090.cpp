@@ -22,26 +22,23 @@ int main(){
         cin >> temp;
         weight.insert(temp);
     }
-
-    for(int i=0; i<n; i++){
+    
+    int total = 0;
+    while(!weight.empty()){
         multiset<ll>::iterator first = weight.begin();
-        
-        multiset<ll>::iterator second = weight.upper_bound(size-(*first));
-        
-        cout << (*first) << " -> ";
-
-        if(second==weight.begin()){
-            cout << "-1"; 
-        }
-        else{
-            cout << (*second);
-        }
         weight.erase(first);
-        cout << endl;
-    }
-    cout << endl;
 
-   
+        multiset<ll>::iterator second = weight.upper_bound(size-(*first));
+
+        total++;
+        //if(weight.empty()) break;
+        if(second!=weight.begin()){
+            second--;
+            weight.erase(second);
+        }
+    }
+
+    cout << total << endl;
 
     return 0;
 }
