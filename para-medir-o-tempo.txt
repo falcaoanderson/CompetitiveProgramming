@@ -1,0 +1,10 @@
+#include <chrono>
+
+auto start = chrono::steady_clock::now();
+
+//codigo aqui
+
+auto end = chrono::steady_clock::now();
+cout << "Elapsed time in microseconds: "
+    << chrono::duration_cast<chrono::milliseconds>(end - start).count()
+    << " ms" << endl;
