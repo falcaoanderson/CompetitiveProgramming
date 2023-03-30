@@ -1,5 +1,4 @@
 // 30/03/23 //
-// brute force para testa a ideia // <- nao funciona
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -9,13 +8,6 @@ using namespace std;
  
 #define endl "\n"
 
-typedef long long ll;
-typedef pair<int, int> pii;
-
-inline int abs(int a){
-    return (a>0 ? a: -a);
-}
-
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
@@ -23,34 +15,30 @@ int main(){
     int n;
     cin >> n;
     
-    vector<ll> v(n, 0);
-    map<int, int> compress;
+    vector<int> v(n, 0);
 
-    for(int i=0; i<n; i++){
-        cin >> v[i];
-        compress[v[i]] = 0;
-    }
+    for(int i=0; i<n; i++) cin >> v[i];
 
-    int count=0;
+    map<int, int> last;
+    vector<int> s(n+1, 0);
 
-    for(map<int, int>::iterator it=compress.begin(); it!=compress.end(); it++){
-        (it -> second) = ++count;
-    }
-    
-    for(int i=0; i<n; i++){
-        v[i] = compress[v[i]];
-    }
-    
-    vector<int> aux(n+1, -1);
-    
-    int count = 0;
-    int resp  = 0;
+    s[0] = 1;
+    last[v[0]] = 0;
+    int resp  = 1;
 
-    for(int i=0; i<n; i++){
-        if(aux[v[i]]!=-1){
-
+    for(int i=1; i<n; i++){
+        if(last.find(v[i])==last.end()){
+            s[i] = s[i-1] + 1;
+        }   
+        else{
+            s[i] = min(i-last[v[i]], s[i-1]+1);    
         }
+        
+        last[v[i]] = i;
+        resp = max(resp, s[i]);
     }
+
+    cout << resp << endl;
 
     return 0;
 }
