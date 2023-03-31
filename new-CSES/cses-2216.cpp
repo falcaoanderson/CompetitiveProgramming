@@ -1,5 +1,4 @@
-// 30/03/23 //
-// brute force para testa a ideia // <- nao funciona
+// 31/03/23 //
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -7,12 +6,7 @@
 using namespace std;
  
 #define endl "\n"
-
-typedef long long ll;
-
-inline int abs(int a){
-    return (a>0 ? a: -a);
-}
+#define PB push_back
 
 int main(){
     ios_base::sync_with_stdio(false);
@@ -21,27 +15,20 @@ int main(){
     int n;
     cin >> n;
     
-    vector<ll> v(n, 0);
+    vector<int> v(n, 0);
     
     for(int i=0; i<n; i++) cin >> v[i];
     
+    vector<bool> collected(n+1, 0);
     int total = 0;
-    
-    while(true){
-        int last = 0;
 
-        for(int i=0; i<n; i++){
-            if(v[i]>last){
-                last = v[i];
-                v[i]=-1;
-            }
-        }
+    for(int i=0; i<n; i++){
+        if(!collected[v[i]-1]) total++;        
 
-        if(last==0) break;
-        total++;
+        collected[v[i]] = 1;
     }
 
     cout << total << endl;
-    
+
     return 0;
 }
