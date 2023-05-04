@@ -21,7 +21,7 @@ typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
 const int INF  = 0x3f3f3f3f;
-const int MAXN = (2e5) + 10;
+const int MAXN = (2e5) + 5;
 const int MOD  = (1e9) + 7;
 
 ll exp(ll a, ll b, ll m=MOD){
