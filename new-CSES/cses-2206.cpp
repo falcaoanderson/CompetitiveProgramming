@@ -41,6 +41,8 @@ struct Node{
         cleft_ = min(cleft, t.cleft + n);
 
         cright_ = min(t.cright, cright + t.n);
+
+        return Node(n_, cleft_, cright_);
     }
 };
 
@@ -113,9 +115,9 @@ int main(){
             int k;
             cin >> k;
             
-            int op1 = query(1, 1, n, 1, k-1).cright + 1;
-            int op2 = query(1, 1, n, k+1, n).cleft + 1;
-            int op3 = v[k];
+            int op1 = v[k];
+            int op2 = query(1, 1, n, 1, k-1).cright + 1;
+            int op3 = query(1, 1, n, k+1, n).cleft + 1;
 
             cout << min(op1, min(op2, op3)) << endl;
         }
