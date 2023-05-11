@@ -1,4 +1,4 @@
-// 10/05/23 // terminar depois
+// 10/05/23 //
 #include <iostream>
 #include <algorithm>
 #include <vector>
