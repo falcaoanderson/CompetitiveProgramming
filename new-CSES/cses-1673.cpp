@@ -1,4 +1,4 @@
-// 23/05/23 // belmann-ford + dfs // O(n*m)
+// 23/05/23 // bellman-ford + dfs // O(n*m)
 #include <iostream>
 #include <algorithm>
 #include <vector>
