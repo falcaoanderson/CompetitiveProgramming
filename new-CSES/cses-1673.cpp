@@ -71,7 +71,7 @@ int main(){
     dist[1] = 0LL;
     bool flag = true, cycle=false;
 
-    for(int i=1; i<=2*n && flag && !cycle; i++){
+    for(int i=1; i<=n && flag && !cycle; i++){
         flag = false;
 
         for(tiii e: edge){
@@ -82,7 +82,7 @@ int main(){
                 dist[b] = dist[a] + (ll)w;
                 flag = true;
 
-                if(i>=n && visited1[b] && visited2[b]){
+                if(i==n && visited1[b] && visited2[b]){
                     cycle=true;
                 }
             }
