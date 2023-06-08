@@ -1,4 +1,4 @@
-// 07/06/23 //
+// 08/06/23 //
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <tuple>
 #include <cstring>
+#include <stack>
 
 using namespace std;
 
@@ -23,54 +24,66 @@ using namespace std;
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
-const int INF  = 0x3f3f3f3f;
-const int MAXN = (2e5) + 5;
-const int MOD  = (1e9) + 7;
-
 int main(){
     fast_io;
 
-    vector<string> v;
+    int n;
 
-    int msize=0;
+    while(cin >> n){
+        if(n==0) break;
+        
+        stack<int> pilha;
+        queue<int> fila;
+        priority_queue<int> pri_fila;
 
-    while(true){
-        string num;
-        cin >> num;
+        bool flag_pilha=1, flag_fila=1, flag_pri_fila=1;
 
-        if(num=="0") break;
+        while(n--){
+            int op, x;
+            cin >> op >> x;
 
-        msize = max(msize, (int)num.size());
-        v.PB(num);
-    }
+            if(op==1){
+                pilha.push(x);
+                fila.push(x);
+                pri_fila.push(x);
+            }
+            else{
+                if(pilha.empty()){
+                    flag_pilha = flag_fila = flag_pri_fila = false;
+                    continue;
+                }
 
-    string resp = "";
-    int last=0;
+                int vpilha = pilha.top();
+                pilha.pop();
 
-    for(int i=0; i<=110; i++){
-        int digit=last;
+                int vfila = fila.front();
+                fila.pop();
 
-        for(string num: v){
-            int num_size = num.size();
+                int v_pri_fila = pri_fila.top();
+                pri_fila.pop();
 
-            if(num_size>=i+1){
-                digit += (int)num[num_size-1-i]-48;
+                flag_pilha = flag_pilha && (vpilha == x);
+                flag_fila  = flag_fila  && (vfila == x);
+                flag_pri_fila = flag_pri_fila && (v_pri_fila==x);
             }
         }
 
-        //sif(i==msize && digit==0) continue;
-
-        resp += char(digit%10 + 48);
-        last = digit/10;
+        if(!flag_pilha && !flag_fila && !flag_pri_fila){
+            cout << "impossible" << endl;
+        }
+        else if((flag_pilha&&flag_fila) || (flag_pilha&&flag_pri_fila) || (flag_fila&&flag_pri_fila)){
+            cout << "not sure" << endl;
+        }
+        else if(flag_pilha){
+            cout << "stack" << endl;
+        }
+        else if(flag_fila){
+            cout << "queue" << endl;
+        }
+        else{
+            cout << "priority queue" << endl;
+        }
     }
 
-    bool flag = 0;
-    for(int i=(int)resp.size()-1; i>=0; i--){
-        flag = flag || (resp[i]!='0');
-
-        if(flag) cout << resp[i];
-    }
-    cout << endl;
-
-    return 0;   
+    return 0;
 }
