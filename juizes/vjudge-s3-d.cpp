@@ -1,4 +1,4 @@
-// 14/06/23 //
+// 13/06/23 //
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -27,29 +27,28 @@ typedef tuple<int, int, int> tiii;
 int main(){
     fast_io;
 
-    int a, b, c;
-    cin >> a >> b >> c;
+    int n, m;
+    cin >> n >> m;
 
-    int n = a+b+c;
-    vector<int> v(n);
+    vector<ll> prefix(n+1, 0LL);
 
-    for(int i=0; i<n; i++) cin >> v[i];
-    
-    sort(v.begin(), v.end());
-    
-    vector<int> resp;
-    bool flag = true;
-    for(int i=1; i<n; i++){
-        if(v[i]==v[i-1] && flag){
-            resp.PB(v[i]);
-            flag = false;
-        }
+    for(int i=1; i<=n; i++){
+        ll val;
+        cin >> val;
 
-        if(v[i]!=v[i-1]) flag = true;
+        prefix[i] = prefix[i-1] + val;
     }
-    
-    cout << resp.size() << endl;
-    for(int i: resp) cout << i << endl;
+
+    while(m--){
+        ll val;
+        cin >> val;
+
+        auto it = lower_bound(prefix.begin(), prefix.end(), val);
+
+        int pos = it-prefix.begin();
+
+        cout << pos << " " << val-prefix[pos-1] << endl;
+    }
 
     return 0;
 }
