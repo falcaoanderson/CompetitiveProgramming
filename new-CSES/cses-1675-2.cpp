@@ -1,4 +1,4 @@
-// 11/06/23 // prim algorithm
+// 15/06/23 // prim algorithm
 #include <iostream>
 #include <algorithm>
 #include <vector>
