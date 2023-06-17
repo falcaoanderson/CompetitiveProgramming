@@ -24,19 +24,31 @@ using namespace std;
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
-const int INF  = 0x3f3f3f3f;
-const int MAXN = (2e5) + 5;
-const int MOD  = (1e9) + 7;
-
-ll exp(ll a, ll b, ll m=MOD){
-    if(b==0) return 1LL;
-
-    if(b&1) return (a*exp(a, b-1, m))%m;
-    return exp((a*a)%m, b/2, m)%m;
-}
-
 int main(){
     fast_io;
+
+    string jogo;
+    cin >> jogo;
+
+    int qnt_x=0, qnt_o=0, pos_o=-1;
+
+    for(int i=0; i<3; i++){
+        qnt_x += int(jogo[i]=='X');
+        qnt_o += int(jogo[i]=='O');
+
+        if(jogo[i]=='O') pos_o = i;
+    }
+
+    if(qnt_x!=2 || qnt_o!=1){
+        cout << "?" << endl;
+    }
+    else if(pos_o==1){
+        cout << "*" << endl;
+    }
+    else{
+        cout << "Alice" << endl;
+    }
+
 
     return 0;
 }
