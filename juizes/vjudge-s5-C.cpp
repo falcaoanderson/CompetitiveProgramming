@@ -28,15 +28,41 @@ const int INF  = 0x3f3f3f3f;
 const int MAXN = (2e5) + 5;
 const int MOD  = (1e9) + 7;
 
-ll exp(ll a, ll b, ll m=MOD){
-    if(b==0) return 1LL;
-
-    if(b&1) return (a*exp(a, b-1, m))%m;
-    return exp((a*a)%m, b/2, m)%m;
-}
-
 int main(){
     fast_io;
+
+    int n, s, r;
+    cin >> n >> s >> r;
+    
+    vector<bool> damaged(n+1);
+
+    while(s--){ //damaged
+        int val;
+        cin >> val;
+
+        damaged[val] = 1;
+    }
+
+    vector<int> reserva(r);
+    for(int i=0; i<r; i++){
+        cin >> reserva[i];
+    }
+    sort(reserva.begin(), reserva.end());
+
+    for(int i: reserva){
+        if(i==1){
+            if(damaged[i+1]) damaged[i+1]=0;
+        }
+        else{
+            if(damaged[i-1]) damaged[i-1] = 0;
+            else if(damaged[i+1]) damaged[i+1]=0;
+        }
+    }
+
+    int resp=0;
+    for(int i: damaged) resp += (int)i;
+
+    cout << resp << endl;
 
     return 0;
 }
