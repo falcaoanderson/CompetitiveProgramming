@@ -28,11 +28,21 @@ const int INF  = 0x3f3f3f3f;
 const int MAXN = (2e5) + 5;
 const int MOD  = (1e9) + 7;
 
-ll exp(ll a, ll b, ll m=MOD){
-    if(b==0) return 1LL;
+ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
+    ll r = 1LL;
 
-    if(b&1) return (a*exp(a, b-1, m))%m;
-    return exp((a*a)%m, b/2, m)%m;
+    while(b>0LL){
+        if(b&1){
+            r = (r*a)%m;
+            b--;
+        }
+        else{
+            a = (a*a)%m;
+            b /= 2LL;
+        }
+    } 
+
+    return r;
 }
 
 int main(){
