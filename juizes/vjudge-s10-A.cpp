@@ -24,29 +24,45 @@ using namespace std;
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
-const int INF  = 0x3f3f3f3f;
 const int MAXN = (2e5) + 5;
-const int MOD  = (1e9) + 7;
 
-ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
-    ll r = 1LL;
+vector<int> adj[MAXN];
+bool visited[MAXN];
 
-    while(b>0LL){
-        if(b&1){
-            r = (r*a)%m;
-            b--;
-        }
-        else{
-            a = (a*a)%m;
-            b /= 2LL;
-        }
-    } 
+bool dfs(int u){
+    visited[u] = 1;
 
-    return r;
+    bool flag = ((int)adj[u].size()==2);
+
+    for(int v: adj[u]){
+        if(visited[v]) continue;
+
+        flag = (dfs(v) && flag);
+    }
+
+    return flag;
 }
 
 int main(){
     fast_io;
+
+    int n, m;
+    cin >> n >> m;
+
+    while(m--){
+        int u, v;
+        cin >> u >> v;
+
+        adj[u].PB(v);
+        adj[v].PB(u);
+    }
+
+    int resp = 0;
+
+    for(int i=1; i<=n; i++)
+        if(!visited[i] && dfs(i)) resp++;
+    
+    cout << resp << endl;
 
     return 0;
 }
