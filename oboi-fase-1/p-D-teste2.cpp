@@ -25,14 +25,30 @@ typedef pair<int, int> pii;
 typedef pair< ll, pii> pli;
 typedef tuple<int, int, int> tiii;
 
+struct hash_pair {
+    template <class T1, class T2>
+    size_t operator()(const pair<T1, T2>& p) const
+    {
+        auto hash1 = hash<T1>{}(p.first);
+        auto hash2 = hash<T2>{}(p.second);
+ 
+        if (hash1 != hash2) {
+            return hash1 ^ hash2;             
+        }
+         
+        // If hash1 == hash2, their XOR is zero.
+          return hash1;
+    }
+};
+
 const ll  INF  = 0x3f3f3f3f3f3f3f3f;
 const int MAXN = (2e5) + 5;
 
 int n, key[MAXN];
 ll resp = INF;
 vector<tiii> adj[MAXN];
+unordered_map<pii, ll, hash_pair> mdist;
 //ll dist[MAXN];
-map<pii, ll> mdist;
 
 void dijkstra(int ini){    
     //for(int i=1; i<=n; i++) dist[i] = INF;
@@ -95,10 +111,6 @@ int main(){
     }
 
     dijkstra(1);
-
-    //for(auto x: mdist){
-    //    cout << x.ff.ff << " " << x.ff.ss << ": " << x.ss << endl;
-    //}
 
     cout << (resp!=INF? resp: -1) << endl;
 
