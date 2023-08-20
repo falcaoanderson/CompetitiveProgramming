@@ -1,4 +1,4 @@
-// 27/10/20 // xx:xx PM //
+// 20/08/23 // xx:xx PM //
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp> // Common file
@@ -8,21 +8,25 @@
 using namespace std;
 using namespace __gnu_pbds;
 
+#define ll long long
 #define endl "\n"
 #define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
-#define pb push_back
-#define mp make_pair
-#define ll long long
-//#define int long long
+#define PB push_back
+#define EB emplace_back
+#define ff first
+#define ss second
 
 // less_equal<int> para multiset
 typedef tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update> indexed_set;
+
 typedef pair<int, int> pii;
+typedef tuple<int, int, int> tiii;
 
 const int INF  = 0x3f3f3f3f;
-const int MAXN = (1e5) + 10;
+const int MAXN = (2e5) + 5;
+const int MOD  = (1e9) + 7;
 
-indexed_set v;
+indexed_set iset;
 
 void apagar(int a){ // para apagar do multiset
     v.erase(v.find_by_order(v.order_of_key(a)));
