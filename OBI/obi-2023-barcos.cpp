@@ -1,5 +1,4 @@
-// testar depois
-
+// 14/08/23 // 05/09/23 //
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -27,27 +26,14 @@ const int MAXN = 1e5+5;
 const int INF = 0x3f3f3f3f;
 
 int n, m;
-vector<pii> adj[MAXN]; // DFS
-int qpath[MAXN]; // DFS
+vector<pii> adj[MAXN];
 int pai[MAXN], dist[MAXN]; // DSU
-
-void dfs(int u, int last){
-    for(pii edge: adj[u]){
-        int v=edge.ff, w=edge.ss;
-
-        if(v==last) continue;
-
-        qpath[v] = min(qpath[u], w);
-        dfs(v, u);
-    }
-}
 
 int find(int u){
     if(pai[u]==u) return u;
 
     return pai[u] = find(pai[u]);
 }
-
 void join(int u, int v){
     u = find(u);
     v = find(v);
@@ -151,8 +137,8 @@ int main(){
     // LCA
     dfs1(1, 0);
 
-    for(int i=1; i<=n; i++){
-        for(int k=1; k<16; k++){
+    for(int k=1; k<=16; k++){
+        for(int i=1; i<=n; i++){
             anc[i][k] = anc[anc[i][k-1]][k-1];
             qanc[i][k] = min(qanc[i][k-1], qanc[anc[i][k-1]][k-1]);
         }
@@ -170,20 +156,3 @@ int main(){
 
     return 0;
 }
-
-/*
-10 9
-1 2 2
-1 3 3
-2 4 3
-2 5 5
-2 6 10
-3 7 1
-3 8 4
-8 10 9
-4 9 2
-3
-9 7
-6 3
-5 1
-*/
