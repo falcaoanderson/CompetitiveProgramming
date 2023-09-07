@@ -1,4 +1,4 @@
-// 01/09/23 //
+// 07/09/23 //
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -28,25 +28,42 @@ const int INF  = 0x3f3f3f3f;
 const int MAXN = (2e5) + 5;
 const int MOD  = (1e9) + 7;
 
-ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
-    ll r = 1LL;
+void solve(){
+    int n;
+    cin >> n;
 
-    while(b>0LL){
-        if(b&1){
-            r = (r*a)%m;
-            b--;
+    int last = -1;
+    vector<int> seq;
+
+    while(n--){
+        int crr;
+        cin >> crr;
+
+        if(crr>=last){
+            seq.PB(crr);
         }
         else{
-            a = (a*a)%m;
-            b /= 2LL;
+            seq.PB(crr);
+            seq.PB(crr);
         }
-    } 
 
-    return r;
+        last = crr;
+    }
+    
+    cout << seq.size() << endl;
+    for(int i: seq) cout << i << " ";
+    cout << endl;
 }
 
 int main(){
     fast_io;
+
+    int t;
+    cin >> t;
+
+    while(t--){
+        solve();
+    }
 
     return 0;
 }

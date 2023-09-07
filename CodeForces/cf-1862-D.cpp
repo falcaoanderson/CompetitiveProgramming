@@ -1,4 +1,4 @@
-// 01/09/23 //
+// 07/09/23 //
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -24,29 +24,40 @@ using namespace std;
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
-const int INF  = 0x3f3f3f3f;
-const int MAXN = (2e5) + 5;
-const int MOD  = (1e9) + 7;
+void solve(){
+    ll n;
+    cin >> n;
 
-ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
-    ll r = 1LL;
+    ll left = 2, right=1414213562LL, mid;
+    ll resp = 2;
 
-    while(b>0LL){
-        if(b&1){
-            r = (r*a)%m;
-            b--;
+    while(left<=right){
+        mid = (left+right)/2LL;
+
+        ll aux = (mid*(mid-1LL))/2LL;
+
+        if(aux<=n){
+            resp = max(resp, mid);
+            left = mid+1LL;
         }
         else{
-            a = (a*a)%m;
-            b /= 2LL;
+            right = mid-1LL;
         }
-    } 
+    }
+    resp += (n - ((resp*(resp-1LL))/2LL));
 
-    return r;
+    cout << resp << endl;
 }
 
 int main(){
     fast_io;
+
+    int t;
+    cin >> t;
+
+    while(t--){
+        solve();
+    }
 
     return 0;
 }
