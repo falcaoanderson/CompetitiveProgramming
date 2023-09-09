@@ -1,4 +1,4 @@
-// 20/08/23 // xx:xx PM //
+// 09/09/23 // xx:xx PM //
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp> // Common file
@@ -29,7 +29,7 @@ const int MOD  = (1e9) + 7;
 indexed_set iset;
 
 void apagar(int a){ // para apagar do multiset
-    v.erase(v.find_by_order(v.order_of_key(a)));
+    iset.erase(iset.find_by_order(iset.order_of_key(a)));
 }
 
 int main(){
