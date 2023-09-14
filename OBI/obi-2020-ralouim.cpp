@@ -1,51 +1,98 @@
-#include <bits/stdc++.h>
+// Problema: OBI 2020 1 FASE - Ralouim
+// 14/09/23 //
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <set>
+#include <unordered_set>
+#include <map>
+#include <unordered_map>
+#include <tuple>
+#include <cstring>
+#include <stack>
 
 using namespace std;
 
+#define ll long long
 #define endl "\n"
 #define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
+#define PB push_back
+#define EB emplace_back
+#define ff first
+#define ss second
 
-const int MAXN = (2e3) + 10;
-const int INF = 0x3f3f3f3f;
+typedef pair<int, int> pii;
+typedef tuple<int, int, int> tiii;
 
-int n;
-int grafo[MAXN][MAXN], memo[MAXN][MAXN];
-pair<int, int> tendas[MAXN];
+const int MAXN = (2e3) + 5;
 
-int dfs(int atual, int ant){
-    if(memo[atual][ant]!=-1) return memo[atual][ant];
+int memo[MAXN][MAXN], aux[MAXN];
+int x[MAXN], y[MAXN];
 
-    memo[atual][ant] = 0;
+int dist(const pii &a){
+    return (x[a.ff] - x[a.ss])*(x[a.ff] - x[a.ss]) + (y[a.ff] - y[a.ss])*(y[a.ff] - y[a.ss]);
+}
 
-    for(int i=1; i<=n; i++){
-        if(i==atual || grafo[atual][i] >= grafo[ant][atual]) continue;
-
-        memo[atual][ant] = max(memo[atual][ant], (int)(i!=0) + dfs(i, atual));
-    }
-
-    return memo[atual][ant];
-}   
+bool comp(const pii &a, const pii &b){
+    return dist(a) < dist(b);
+}
 
 int main(){
     fast_io;
 
+    int n;
     cin >> n;
-    
-    tendas[0] = {0, 0};
-    for(int i=1; i<=n; i++) cin >> tendas[i].first >> tendas[i].second;
-    
-    
-    for(int i=0; i<=n; i++)
-        for(int j=i+1; j<=n; j++){
-            grafo[i][j] = grafo[j][i] = (tendas[i].first-tendas[j].first)*(tendas[i].first-tendas[j].first)
-                                       +(tendas[i].second-tendas[j].second)*(tendas[i].second-tendas[j].second);
-            //cout << i <<" " << j << " " << grafo[i][j] << endl;
-        }
-        
-    grafo[0][0] = INF;
-    memset(memo, -1, sizeof(memo));
 
-    cout << dfs(0, 0) << endl;
+    x[0] = y[0] = 0;
+    for(int i=1; i<=n; i++){
+        cin >> x[i] >> y[i];
+    }
+
+    vector<pii> edges;
+    for(int i=0; i<=n; i++){
+        for(int j=i+1; j<=n; j++){
+            edges.EB(i, j);
+        }
+    }
+
+    sort(edges.begin(), edges.end(), comp);
+
+    // memo[u][v] := maior caminho partindo de u para v
+    // aux[u]     := maior caminho partindo de u usando arestas com indice <= k
+
+    int k=0, sz=edges.size();
+    while(k<sz){
+
+        // utiliza todas as arestas com a mesma distancia
+        for(int i=k; i<sz && dist(edges[i])==dist(edges[k]); i++){
+            int u = edges[i].ff, v = edges[i].ss;
+            
+            memo[u][v] = 1 + aux[v];
+
+            if(u>0) memo[v][u] = 1 + aux[u];
+        }
+
+        int p=0;
+        for(int i=k; i<sz && dist(edges[i])==dist(edges[k]); i++){
+            int u = edges[i].ff, v = edges[i].ss;
+            
+            aux[u] = max(aux[u], memo[u][v]);
+            
+            if(u>0) aux[v] = max(aux[v], memo[v][u]);
+
+            p++;
+        }
+
+        k+=p;
+    }
+
+    int resp = 0;
+    for(int i=1; i<=n; i++){
+        resp = max(resp, memo[0][i]);
+    }
+
+    cout << resp << endl;
 
     return 0;
 }
