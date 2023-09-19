@@ -1,4 +1,4 @@
-// 01/09/23 //
+// 19/09/23 //
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -10,7 +10,6 @@
 #include <tuple>
 #include <cstring>
 #include <stack>
-#include <functional>
 
 using namespace std;
 
@@ -25,29 +24,34 @@ using namespace std;
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
-const int INF  = 0x3f3f3f3f;
-const int MAXN = (2e5) + 5;
-const int MOD  = (1e9) + 7;
-
-ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
-    ll r = 1LL;
-
-    while(b>0LL){
-        if(b&1){
-            r = (r*a)%m;
-            b--;
-        }
-        else{
-            a = (a*a)%m;
-            b /= 2LL;
-        }
-    } 
-
-    return r;
-}
-
 int main(){
     fast_io;
+
+    int n, h, w;
+    cin >> n >> h >> w;
+
+    while(n--){
+        char c1, c2;
+        cin >> c1 >> c2;
+
+        if(c1=='Y' || w==0){
+            cout << "Y ";
+            h--;
+            w++;
+        }
+        else{
+            cout << "N ";
+        }
+
+        if(c2=='Y' || h==0){
+            cout << "Y" << endl;
+            h++;
+            w--;
+        }
+        else{
+            cout << "N" << endl;
+        }
+    }
 
     return 0;
 }
