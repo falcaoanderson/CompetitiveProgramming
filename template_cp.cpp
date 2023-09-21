@@ -11,6 +11,7 @@
 #include <cstring>
 #include <stack>
 #include <functional>
+#include <cmath>
 
 using namespace std;
 
@@ -26,6 +27,7 @@ typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
 const int INF  = 0x3f3f3f3f;
+const int LINF = 0x3f3f3f3f3f3f3f3f;
 const int MAXN = (2e5) + 5;
 const int MOD  = (1e9) + 7;
 
