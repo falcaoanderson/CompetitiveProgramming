@@ -1,4 +1,6 @@
-// 16/06/23 //
+// 23/09/23 //
+// Problem: Convex Hull (CSES)
+
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -26,28 +28,6 @@ using namespace std;
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
-const int INF  = 0x3f3f3f3f;
-const  ll LINF = 0x3f3f3f3f3f3f3f3f;
-const int MAXN = (2e5) + 5;
-const int MOD  = (1e9) + 7;
-
-ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
-    ll r = 1LL;
-
-    while(b>0LL){
-        if(b&1){
-            r = (r*a)%m;
-            b--;
-        }
-        else{
-            a = (a*a)%m;
-            b /= 2LL;
-        }
-    } 
-
-    return r;
-}
-
 struct Point{
     long long x, y;
     
@@ -63,7 +43,7 @@ struct Point{
     bool operator==(const Point &p){
         return (x==p.x && y==p.y);
     }
-    bool operator<(const Point &p){
+    bool operator<(const Point &p) const{
         return (x < p.x || (x==p.x && y<p.y));
     }
     Point operator+(const Point &p){
@@ -82,6 +62,62 @@ struct Point{
 
 int main(){
     fast_io;
+
+    int n;
+    cin >> n;
+
+    vector<Point> v(n);
+    for(int i=0; i<n; i++){
+        cin >> v[i].x >> v[i].y;
+    }
+
+    sort(v.begin(), v.end());
+
+    int sz=0;
+    vector<Point> upper, lower;
+
+    for(Point p: v){
+        if(sz<2){
+            upper.PB(p);
+            sz++;
+        }
+        else{
+            while(sz>=2 && ((upper[sz-2]-upper[sz-1])^(p-upper[sz-1]))<0LL){
+                upper.pop_back();
+                sz--;
+            }
+
+            upper.PB(p);
+            sz++;
+        }
+    }
+
+    sz=0;
+    for(Point p: v){
+        if(sz<2){
+            lower.PB(p);
+            sz++;
+        }
+        else{
+            while(sz>=2 && ((lower[sz-2]-lower[sz-1])^(p-lower[sz-1]))>0LL){
+                lower.pop_back();
+                sz--;
+            }
+
+            lower.PB(p);
+            sz++;
+        }
+    }
+
+    set<Point> convex_hull;
+
+    for(Point p: upper) convex_hull.insert(p);
+    for(Point p: lower) convex_hull.insert(p);
+
+    cout << convex_hull.size() << endl;
+    for(Point p: convex_hull){
+        cout << p.x << " " << p.y << endl;
+    }
 
     return 0;
 }
