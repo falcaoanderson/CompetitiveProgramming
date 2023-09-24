@@ -1,7 +1,6 @@
 .vscode/settings.json
 teste.cpp
 .DS_Store
-new-CSES/olhardepois.cpp
 output/
 template.sh
 new-CSES/cses-2413.cpp
@@ -12,8 +11,6 @@ outros/manipulacao-de-bits.cpp
 .cph/
 new-CSES/cses-2220.cpp
 OBI/obi-2020-paciente-zero.cpp
-OBI/obi-2020-ralouim-2.cpp
-OBI/obi-2020-ralouim-3.cpp
 maratona/fase0/
 new-CSES/cses-1160.cpp
 juizes/vjudge-s9-A-2.cpp
