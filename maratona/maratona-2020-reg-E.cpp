@@ -1,4 +1,9 @@
-// 16/10/23 // O(n*logn)
+/*
+16/10/23 
+Problem: ICPC Latam 2020 Regional - E. Excellent Views
+Complexity: O(n)
+*/
+
 #include <iostream>
 #include <algorithm>
 #include <vector>
