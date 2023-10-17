@@ -19,3 +19,7 @@ contest/
 juizes/compasso.py
 new-CSES/cses-1693.cpp
 new-CSES/cses-1724.cpp
+maratona/maratona-2020-reg-J.bin
+maratona/maratona-2020-subreg-K_TLE_2.cpp
+maratona/maratona-2020-subreg-K_TLE.cpp
+.gitignore
