@@ -25,8 +25,8 @@ using namespace std;
 #define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
 #define PB push_back
 #define EB emplace_back
-#define ff first
-#define ss second
+#define FF first
+#define SS second
 
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
