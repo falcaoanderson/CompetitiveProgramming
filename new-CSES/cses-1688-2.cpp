@@ -37,9 +37,8 @@ const int MAXLOG = 17 + 5;
 int n;
 vector<int> adj[MAXN];
 int lvl[MAXN];
-
 int euler_tour_id[2*MAXN], first_pos[MAXN];
-int st_id[2*MAXN][MAXLOG], st_val[2*MAXN][MAXLOG];
+int st_id[2*MAXN][MAXLOG];
 
 int sz=0;
 void dfs(int u, int last){
@@ -62,29 +61,24 @@ inline int ilog2(int a){
 
 void build_st(){
     for(int i=1; i<=sz; i++){
-        st_val[i][0] = lvl[euler_tour_id[i]];
-        st_id[i][0]  = i;
+        st_id[i][0]  = euler_tour_id[i];
     }
 
     for(int k=1; k<=ilog2(sz); k++){
         for(int i=1; i+(1<<k)-1<=sz; i++){
-            st_val[i][k] = (st_val[i][k-1]<=st_val[i+(1<<(k-1))][k-1]? st_val[i][k-1]: st_val[i+(1<<(k-1))][k-1]);
-            st_id[i][k]  = (st_val[i][k-1]<=st_val[i+(1<<(k-1))][k-1]? st_id[i][k-1]: st_id[i+(1<<(k-1))][k-1]);
+            st_id[i][k]  = (lvl[ st_id[i][k-1] ]<=lvl[ st_id[i+(1<<(k-1))][k-1] ]? st_id[i][k-1]: st_id[i+(1<<(k-1))][k-1]);
         }
     }
 }
-int rmq(int i, int j){
-    int l = ilog2(j-i+1);
-    
-    return (st_val[i][l]<st_val[j-(1<<l)+1][l] ? st_id[i][l]: st_id[j-(1<<l)+1][l]);
-}
 
 int lca(int u, int v){
-    u = first_pos[u];
-    v = first_pos[v];
-    if(u>v) swap(u, v);
+    int i = first_pos[u];
+    int j = first_pos[v];
+    if(i>j) swap(i, j);
 
-    return euler_tour_id[rmq(u, v)];
+    int l = ilog2(j-i+1);
+    
+    return (lvl[ st_id[i][l] ]<lvl[ st_id[j-(1<<l)+1][l] ] ? st_id[i][l]: st_id[j-(1<<l)+1][l]);
 }
 
 int main(){
