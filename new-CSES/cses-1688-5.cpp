@@ -1,7 +1,7 @@
 /* naive1 - não passa (TLE)
 Date: 22/11/23 
-Problem: LCA with euler tour technique and sparse table
-Complexity: <O(n^2), O(1)>
+Problem: LCA
+Complexity: <O(n), O(n)>
 */
  
 #include <iostream>
