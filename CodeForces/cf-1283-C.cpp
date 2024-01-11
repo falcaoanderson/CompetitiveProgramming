@@ -1,5 +1,5 @@
 /*
-10/01/24 
+09/01/24 
 Problem: 
 Complexity:
 */
@@ -36,25 +36,45 @@ const  ll LINF = 0x3f3f3f3f3f3f3f3f;
 const int MAXN = (2e5) + 5;
 const int MOD  = (1e9) + 7;
 
-ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
-    ll r = 1LL;
-
-    while(b>0LL){
-        if(b&1){
-            r = (r*a)%m;
-            b--;
-        }
-        else{
-            a = (a*a)%m;
-            b /= 2LL;
-        }
-    } 
-
-    return r;
-}
-
 int main(){
     fast_io;
+
+    int n;
+    cin >> n;
+
+    vector<int> v(n);
+    vector<bool> chosen(n+1);
+
+    int last=0;
+    for(int i=0; i<n; i++){
+        cin >> v[i];
+        chosen[v[i]] = 1;
+        if(v[i]==0) last=i+1;
+    }
+
+    int l=1, r=n;
+    for(int i=0; i<n; i++){
+        if(v[i]){
+            cout << v[i] << " ";
+        }
+        else{
+            while(chosen[l]){
+                l++;
+            }
+            while(chosen[r]){
+                r--;
+            }
+
+            if(r==i+1 || l==last){
+                cout << l << " ";
+                l++;
+            }
+            else{
+                cout << r << " ";
+                r--;
+            }
+        }
+    }
 
     return 0;
 }

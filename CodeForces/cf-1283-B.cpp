@@ -1,5 +1,5 @@
 /*
-10/01/24 
+09/01/24 
 Problem: 
 Complexity:
 */
@@ -55,6 +55,20 @@ ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
 
 int main(){
     fast_io;
+
+    int t;
+    cin >> t;
+    
+    while(t--){
+        int n, k;
+        cin >> n >> k;
+
+        int resp = (n/k)*k;
+        n -= resp;
+        resp += min(n, (k/2));
+        
+        cout << resp << endl;
+    }
 
     return 0;
 }
