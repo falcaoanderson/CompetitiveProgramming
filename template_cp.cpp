@@ -4,20 +4,7 @@ Problem:
 Complexity:
 */
 
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <queue>
-#include <set>
-#include <unordered_set>
-#include <map>
-#include <unordered_map>
-#include <tuple>
-#include <cstring>
-#include <stack>
-#include <functional>
-#include <cmath>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
