@@ -1,6 +1,6 @@
 /*
 04/01/25 
-
+CF 578 Div.2 B 
 */
 
 #include <bits/stdc++.h>
@@ -23,25 +23,41 @@ const  ll LINF = 0x3f3f3f3f3f3f3f3f;
 const int MAXN = (2e5) + 5;
 const int MOD  = (1e9) + 7;
 
-ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
-    ll r = 1LL;
+void solve(){
+    int n, m, k;
+    cin >> n >> m >> k;
 
-    while(b>0LL){
-        if(b&1){
-            r = (r*a)%m;
-            b--;
+    vector<int> h(n);
+    for(int i=0; i<n; i++) cin >> h[i];
+
+    bool win = 0;
+
+    for(int i=0; i<n; i++){
+        if(i==n-1) {win=1;break;}
+
+        if(h[i]+k >= h[i+1]){
+            m += min(h[i], h[i] + k - h[i+1]);
+        }
+        else if(h[i]+k+m >= h[i+1]){
+            m += h[i] + k - h[i+1];
         }
         else{
-            a = (a*a)%m;
-            b /= 2LL;
+            break;
         }
-    } 
+    }
 
-    return r;
+    cout << (win? "YES": "NO") << endl;
 }
 
 int main(){
     fast_io;
+
+    int t;
+    cin >> t;
+
+    while(t--){
+        solve();
+    }
 
     return 0;
 }

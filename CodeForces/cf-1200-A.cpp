@@ -1,6 +1,6 @@
 /*
 04/01/25 
-
+CF 578 Div.2 A 
 */
 
 #include <bits/stdc++.h>
@@ -42,6 +42,38 @@ ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
 
 int main(){
     fast_io;
+
+    vector<bool> room(10);
+    int n;
+    cin >> n;
+
+    while(n--){
+        char c;
+        cin >> c;
+
+        if('0'<=c && c<='9'){
+            room[c-'0'] = 0;
+        }
+        else if(c=='L'){
+            for(int i=0; i<10; i++){
+                if(!room[i]){
+                    room[i]=1;
+                    break;
+                }
+            }
+        }
+        else{
+            for(int i=9; i>=0; i--){
+                if(!room[i]){
+                    room[i]=1;
+                    break;
+                }
+            }
+        }
+    }
+
+    for(bool x: room) cout << x;
+    cout << endl;
 
     return 0;
 }

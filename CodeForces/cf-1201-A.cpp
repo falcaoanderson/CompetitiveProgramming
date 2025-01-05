@@ -1,6 +1,6 @@
 /*
 04/01/25 
-
+CF 577 Div.2 A
 */
 
 #include <bits/stdc++.h>
@@ -20,28 +20,37 @@ typedef tuple<int, int, int> tiii;
 
 const int INF  = 0x3f3f3f3f;
 const  ll LINF = 0x3f3f3f3f3f3f3f3f;
-const int MAXN = (2e5) + 5;
+const int MAXN = (1e3) + 5;
 const int MOD  = (1e9) + 7;
 
-ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
-    ll r = 1LL;
-
-    while(b>0LL){
-        if(b&1){
-            r = (r*a)%m;
-            b--;
-        }
-        else{
-            a = (a*a)%m;
-            b /= 2LL;
-        }
-    } 
-
-    return r;
-}
+int ma[MAXN][10];
 
 int main(){
     fast_io;
+
+    int n, m;
+    cin >> n >> m;
+
+    for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++){
+            char c;
+            cin >> c;
+
+            ma[j][c-'A']++;
+        }
+    }
+
+    int resp = 0;
+    for(int i=0; i<m; i++){
+        int a;
+        cin >> a;
+
+        int aux = 0;
+        for(int j=0; j<5; j++) aux = max(aux, ma[i][j]);
+        resp += aux * a;
+    }
+
+    cout << resp << endl;
 
     return 0;
 }

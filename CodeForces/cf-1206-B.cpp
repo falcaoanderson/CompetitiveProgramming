@@ -1,6 +1,6 @@
 /*
 04/01/25 
-
+Problem: CF 580 Div. 2
 */
 
 #include <bits/stdc++.h>
@@ -23,25 +23,37 @@ const  ll LINF = 0x3f3f3f3f3f3f3f3f;
 const int MAXN = (2e5) + 5;
 const int MOD  = (1e9) + 7;
 
-ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
-    ll r = 1LL;
-
-    while(b>0LL){
-        if(b&1){
-            r = (r*a)%m;
-            b--;
-        }
-        else{
-            a = (a*a)%m;
-            b /= 2LL;
-        }
-    } 
-
-    return r;
-}
-
 int main(){
     fast_io;
+
+    ll resp = 0;
+    int cnt_neg = 0, cnt_zero = 0;
+
+    int n;
+    cin >> n;
+
+    for(int i=0; i<n; i++){
+        int x;
+        cin >> x;
+        
+        if(x==0){
+            cnt_zero++;
+            resp++;
+        }
+        else if(x>0){
+            resp += x-1;
+        }
+        else{
+            cnt_neg++;
+            resp += -1 - x;
+        }
+    }
+
+    if(cnt_neg&1 && cnt_zero==0){
+        resp+=2;
+    }
+
+    cout << resp << endl;
 
     return 0;
 }
