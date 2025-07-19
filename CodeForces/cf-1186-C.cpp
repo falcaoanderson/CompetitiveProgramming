@@ -1,5 +1,5 @@
 /*
-00/07/25 
+18/07/25 
 
 */
 
@@ -23,25 +23,25 @@ const  ll LINF = 0x3f3f3f3f3f3f3f3f;
 const int MAXN = (2e5) + 5;
 const int MOD  = (1e9) + 7;
 
-ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
-    ll r = 1LL;
-
-    while(b>0LL){
-        if(b&1){
-            r = (r*a)%m;
-            b--;
-        }
-        else{
-            a = (a*a)%m;
-            b /= 2LL;
-        }
-    } 
-
-    return r;
-}
-
 int main(){
     fast_io;
+
+    string a, b;
+    cin >> a >> b;
+
+    int sizea=a.size(), sizeb=b.size();
+    int resp=0, crr=0;
+
+    for(int i=0; i<sizeb; i++){
+        crr ^= (a[i] != b[i]);
+    }
+    resp += (crr==0);
+    
+    for(int i=sizeb; i<sizea; i++){
+        crr ^= (a[i-sizeb]!=a[i]);
+        resp += (crr==0);
+    }
+    cout << resp << endl;
 
     return 0;
 }

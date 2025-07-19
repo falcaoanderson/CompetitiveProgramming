@@ -1,5 +1,5 @@
 /*
-00/07/25 
+18/07/25 
 
 */
 
@@ -42,6 +42,10 @@ ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
 
 int main(){
     fast_io;
+
+    int n, m, k;
+    cin >> n >> m >> k;
+    cout << (n<=m && n<=k?"Yes":"No") << endl;
 
     return 0;
 }
