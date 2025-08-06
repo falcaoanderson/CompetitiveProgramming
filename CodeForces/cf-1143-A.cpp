@@ -1,5 +1,5 @@
 /*
-00/08/25 
+06/08/25 
 
 */
 
@@ -42,6 +42,37 @@ ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
 
 int main(){
     fast_io;
+
+    int n;
+    cin >> n;
+
+    int left=0, right=0;
+    vector<int> v(n);
+    for(int i=0; i<n; i++){
+        int x;
+        cin >> x;
+        v[i]=x;
+        if(x){
+            right++;
+        }
+        else{
+            left++;
+        }
+    }
+
+    for(int i=0; i<n; i++){
+        if(v[i]){
+            right--;
+        }
+        else{
+            left--;
+        }
+
+        if(right==0 || left==0){
+            cout << i + 1 << endl;
+            break;
+        }
+    }
 
     return 0;
 }
