@@ -1,12 +1,12 @@
 /*
-00/08/25 
+12/08/25 
 
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
+#define ll long long
 #define endl "\n"
 #define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
 #define PB push_back
@@ -42,6 +42,30 @@ ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
 
 int main(){
     fast_io;
+
+    int n;
+    ll a, b;
+    cin >> n >> a >> b;
+
+    vector<ll> v(n);
+    for(int i=0; i<n; i++){
+        cin >> v[i];
+
+        v[i] %= (a+b);
+    }
+    sort(v.begin(), v.end());
+    
+    ll d=0;
+    for(int i=1; i<n; i++){
+        d = max(d, v[i]-v[i-1]);
+    }
+
+    if(v[n-1]-v[0]<a || d>b){
+        cout << "Yes" << endl;
+    }
+    else{
+        cout << "No" << endl;
+    }
 
     return 0;
 }

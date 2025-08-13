@@ -1,12 +1,12 @@
 /*
-00/08/25 
+12/08/25 
 
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
+#define ll long long
 #define endl "\n"
 #define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
 #define PB push_back
@@ -42,6 +42,27 @@ ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
 
 int main(){
     fast_io;
+
+    ll l, r;
+    cin >> l >> r;
+
+    vector< pair<ll, ll> > resp;
+    
+    while(l<r){
+        ll pot=0, aux=l;
+        while(aux%2LL==0 && l+(1LL<<(pot+1LL))<=r){
+            aux/=2LL;
+            pot++;
+        }
+
+        resp.EB(l, l+(1LL<<pot));
+        l += (1LL<<pot);
+    }
+
+    cout << resp.size() << endl;
+    for(auto p: resp){
+        cout << p.FF << " " << p.SS << endl;
+    }
 
     return 0;
 }

@@ -1,12 +1,12 @@
 /*
-00/08/25 
+12/08/25 
 
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
+#define ll long long
 #define endl "\n"
 #define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
 #define PB push_back
@@ -42,6 +42,29 @@ ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
 
 int main(){
     fast_io;
+
+    int n;
+    cin >> n;
+
+    map<int, int> mapaux;
+
+    for(int i=0; i<n; i++){
+        int color, flavor;
+        cin >> flavor >> color;
+
+        if(mapaux.find(color)==mapaux.end()){
+            mapaux[color]=flavor; 
+        }
+        else{
+            mapaux[color] = min(mapaux[color], flavor);
+        }
+    }
+
+    int resp = -INF;
+    for(auto p: mapaux){
+        resp = max(resp, p.SS);
+    }
+    cout << resp << endl;
 
     return 0;
 }

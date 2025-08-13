@@ -1,5 +1,5 @@
 /*
-00/08/25 
+12/08/25 
 
 */
 
@@ -42,6 +42,30 @@ ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
 
 int main(){
     fast_io;
+
+    int n;
+    cin >> n;
+    int pos = 0, neg=0;
+    for(int i=0; i<n; i++){
+        int x;
+        cin >> x;
+        if(x>0){
+            pos++;
+        }
+        else if(x<0){
+            neg++;
+        }
+    }
+
+    if(pos>=(n+1)/2){
+        cout << 1 << endl;
+    }
+    else if(neg>=(n+1)/2){
+        cout << -1 << endl;
+    }
+    else{
+        cout << 0 << endl;
+    }
 
     return 0;
 }
