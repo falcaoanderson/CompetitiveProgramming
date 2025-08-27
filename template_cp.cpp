@@ -13,7 +13,7 @@ using ll = long long;
 #define EB emplace_back
 #define FF first
 #define SS second
-#define sz(x) (int)(x).size()
+#define SZ(x) (int)(x).size()
 
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
