@@ -1,5 +1,5 @@
 /*
-00/09/25 
+02/09/25 
 
 */
 
@@ -23,25 +23,23 @@ const  ll LINF = 0x3f3f3f3f3f3f3f3f;
 const int MAXN = (2e5) + 5;
 const int MOD  = (1e9) + 7;
 
-ll exp(ll a, ll b, ll m=MOD){ // 0^0 = 1
-    ll r = 1LL;
-
-    while(b>0LL){
-        if(b&1){
-            r = (r*a)%m;
-            b--;
-        }
-        else{
-            a = (a*a)%m;
-            b /= 2LL;
-        }
-    } 
-
-    return r;
-}
-
 int main(){
     fast_io;
 
+    int a, b;
+    cin >> a >> b;
+    
+    if(a%2==0){
+        cout << (a/2) * b << endl;
+    }
+    else if(b%2==0){
+        cout << (b/2) * a << endl;
+    }
+    else{
+        if(a>b) swap(a, b);
+        
+        cout << (b/2) * a + a/2 << endl;
+    }
+    
     return 0;
 }
