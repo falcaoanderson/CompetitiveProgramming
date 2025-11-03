@@ -1,45 +1,42 @@
-// 09/05/23 //
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <queue>
-#include <set>
-#include <unordered_set>
-#include <map>
-#include <unordered_map>
-#include <tuple>
-#include <cstring>
+/*
+22/10/25 
 
+*/
+
+#include <bits/stdc++.h>
 using namespace std;
 
+using ll = long long;
 #define endl "\n"
 #define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
 #define PB push_back
-#define ll long long
-#define ff first
-#define ss second
+#define EB emplace_back
+#define FF first
+#define SS second
+#define SZ(x) (int)(x).size()
 
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
+const int INF  = 0x3f3f3f3f;
+const  ll LINF = 0x3f3f3f3f3f3f3f3f;
 const int MAXN = (2e5) + 5;
+const int MOD  = (1e9) + 7;
 
-int n;
-int bit[MAXN];
-
-void update(int i, int u){
-    while(i<=n){
-        bit[i] += u;
-        i += (i&-i);
-    }
-}
+int n, bit[MAXN];
 int query(int i){
-    int sum=0;
-    while(i>=1){
+    int sum = 0;
+    while(i > 0){
         sum += bit[i];
-        i -= (i&-i);
+        i -= (i & -i);
     }
     return sum;
+}
+void update(int i, int val){
+    while(i<=n){
+        bit[i] += val;
+        i += (i & -i);
+    }
 }
 
 int main(){
@@ -47,69 +44,52 @@ int main(){
 
     int q;
     cin >> n >> q;
-
-    vector<int> v(n+1), aux(n);
-    for(int i=1; i<=n; i++){
-        cin >> v[i];    
-        aux[i-1] = v[i]; 
-    }
-
-    // compressao de valores
-    sort(aux.begin(), aux.end());
-    unordered_map<int, int> compress;
-    int cont=0;
-    for(int i=0; i<n; i++){
-        if(i==0 || aux[i]!=aux[i-1]){
-            compress[aux[i]] = (++cont);
-        }
-    }
-    for(int i=1; i<=n; i++) v[i] = compress[v[i]];
-    // ----------------------
-
-    vector<int> prox(n+1);
-    aux.clear(); aux.resize(n+1);
-
-    for(int i=1; i<=n; i++){
-        if(aux[v[i]]!=0){
-            prox[ aux[v[i]] ] = i;
-        }
-        aux[v[i]] = i;
-    }
     
-    vector<int> distinct(n+1);
-    aux.clear(); aux.resize(n+1);
+    int maxval = 0;
+    map<int, int> compress;
+    vector<int> v(n);
 
-    for(int i=1; i<=n; i++){
-        if(aux[v[i]]==0) distinct[i] = 1;
-        aux[v[i]] = 1;
+    for(int i=0; i<n; i++){
+        cin >> v[i];
 
-        update(i, distinct[i]);   
+        if(compress.find(v[i])==compress.end()){
+            maxval++;
+            compress[v[i]] = maxval;
+            v[i] = maxval;
+        }
+        else{
+            v[i] = compress[v[i]];
+        }
     }
 
-    vector<tiii> queries(q);
+    vector< pair<pii, int> > queries(q);
     for(int i=0; i<q; i++){
-        int a, b;
-        cin >> a >> b;
-        queries[i] = tie(a, b, i);
+        cin >> queries[i].FF.SS >> queries[i].FF.FF;
+        queries[i].SS = i;
     }
     sort(queries.begin(), queries.end());
 
-    int left=1;
-    vector<int> resp(q);
-    for(tiii qq: queries){
-        int a, b, ind;
-        tie(a, b, ind) = qq;
+    int r = -1;
+    vector<int> resp(q), last(maxval+1);
+    for(int i=0; i<q; i++){
+        int id = queries[i].SS, a = queries[i].FF.SS, b = queries[i].FF.FF;
+        a--; b--; // 0 indexed
+        
+        while(r<b){
+            r++;
+         
+            if(last[v[r]]!=0){
+                update(last[v[r]], -1);
+            }
 
-        while(left<a){
-            update(left, -1);
-            if(prox[left]!=0) update(prox[left], +1);
-            left++;
+            last[v[r]] = r+1;
+            update(last[v[r]], 1);
         }
 
-        resp[ind] = query(b); 
+        resp[id] = query(b+1) - query(a);
     }
 
-    for(int i: resp) cout << i << endl;
+    for(int x: resp) cout << x << endl;
 
-    return 0;   
+    return 0;
 }
