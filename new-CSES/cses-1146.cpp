@@ -49,7 +49,7 @@ int main(){
     ll n;
     cin >> n;
 
-    ll resp = 0, qnt=0;
+    ll resp = 0, qnt = 0;
     
     for(ll i=0; i<64; i++){
         qnt += ((n&(1LL<<i)) != 0);
