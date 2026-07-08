@@ -1,0 +1,69 @@
+/*
+23/02/26 
+
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+#define endl "\n"
+#define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
+#define PB push_back
+#define EB emplace_back
+#define FF first
+#define SS second
+#define SZ(x) (int)(x).size()
+
+typedef pair<int, int> pii;
+typedef tuple<int, int, int> tiii;
+
+const int INF  = 0x3f3f3f3f;
+const  ll LINF = 0x3f3f3f3f3f3f3f3f;
+const int MAXN = (2e5) + 5;
+const int MOD  = (1e9) + 7;
+
+void solve(){
+    int n;
+    cin >> n;
+    vector<int> v(n);
+    for(int i=0; i<n; i++) cin >> v[i];
+
+    stack<int> prev;
+    ll ans = 0;
+    // cout << endl;
+    for(int i=0; i<n; i++){
+        int x = v[i];
+
+        while(!prev.empty() && v[prev.top()] >= x){
+            prev.pop();
+        }
+
+        if(prev.empty() || v[prev.top()] <= x - 2){
+            while(!prev.empty()) prev.pop();
+
+            ans += (ll)(i+1) * (ll)(n - i);
+            // cout << i << " " << (ll)(i+1) * (ll)(n - i) << endl;
+        }
+        else{
+            // cout << i << " " << (ll)(i - prev.top() + 1) * (ll)(n - i) << endl;
+            ans += (ll)(i - prev.top()) * (ll)(n - i);
+        }
+
+        prev.push(i);
+    }
+    // cout << "ans: ";
+    cout << ans << endl;
+}
+
+int main(){
+    fast_io;
+
+    int t=1;
+    cin >> t;
+    while(t--){
+        solve();
+    }
+
+    return 0;
+}
